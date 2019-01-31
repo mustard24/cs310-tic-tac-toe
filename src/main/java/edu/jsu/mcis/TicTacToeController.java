@@ -13,13 +13,16 @@ public class TicTacToeController {
 
         model = new TicTacToeModel(width);
         view = new TicTacToeView();
-        
     }
 
     public void start() {
     
         /* MAIN LOOP (repeats until game is over) */
-
+		while(model.getResult() != result.X || model.getResult() != result.O){
+			view.showBoard(model.toString());
+			view.getNextMove(model.isXTurn());
+			view.showResult(model.getResult().toString());
+		}
         /* Display the board using the View's "showBoard()", then use
            "getNextMove()" to get the next move from the player.  Enter
            the move (using the Model's "makeMark()", or display an error
@@ -29,9 +32,7 @@ public class TicTacToeController {
         
         /* After the game is over, show the final board and the winner */
 
-        view.showBoard(model.toString());
-
-        view.showResult(model.getResult().toString());
+        
         
     }
 

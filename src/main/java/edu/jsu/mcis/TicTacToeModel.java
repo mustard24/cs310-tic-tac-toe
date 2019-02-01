@@ -165,11 +165,31 @@ public class TicTacToeModel {
     }
 	
     private boolean isMarkWin(Mark mark) {
-        
-        /* Check the squares of the board to see if the specified mark is the
-           winner */
-        
-        // INSERT YOUR CODE HERE
+        boolean winDiagonalWest = true;
+		boolean winDiagonalEast = true;
+		boolean winVertical = true;
+		boolean winHorizontal = true;
+        for(int i = 0; i < width; i++){
+			if(!(board[i][i] == mark)){
+				winDiagonalWest = false;
+			}
+		}
+		for(int j = width; j > 0; j--){
+			if(!(board[j][j] == mark)){
+				winDiagonalEast = false;
+			}
+		}
+		for(int k = 0; k < width; k++){
+			for(int l = 0; l < width; l++){
+				if(!(board[k][l] == mark)){
+					winVertical = false;
+				}
+			}
+			if(winVertical){
+				return true;
+			}
+			winVertical = true;
+		}
 
         return false; // remove this line later!
 

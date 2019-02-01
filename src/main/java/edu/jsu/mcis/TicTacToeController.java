@@ -16,9 +16,9 @@ public class TicTacToeController {
     }
 
     public void start() {
-    
+		// model.Mark.EMPTY;
         /* MAIN LOOP (repeats until game is over) */
-		while(model.getResult() != result.X || model.getResult() != result.O){
+		while(!(model.isGameover())){
 			view.showBoard(model.toString());
 			view.getNextMove(model.isXTurn());
 			view.showResult(model.getResult().toString());

@@ -92,7 +92,7 @@ public class TicTacToeModel {
            other player before returning TRUE.  Otherwise, return FALSE. */
 		this.width = width;
         TicTacToeModel model = new TicTacToeModel(width);
-		if(model.isValidSquare(row,col) || !(model.isSquareMarked(row,col))){
+		if(model.isValidSquare(row,col) && !(model.isSquareMarked(row,col))){
 			if(xTurn){
 				xTurn = false;
 				board[row][col] = Mark.X;
@@ -127,7 +127,10 @@ public class TicTacToeModel {
     private boolean isSquareMarked(int row, int col) {
         
         /* Return TRUE if the square at specified location is marked */
+		System.out.println("This is totally called.");
+		
 		if(board[row][col] == Mark.X || board[row][col] == Mark.O){
+			System.out.println("yeet");
 			return true;
 		}
         return false; // remove this line later!
@@ -174,7 +177,7 @@ public class TicTacToeModel {
 				winDiagonalWest = false;
 			}
 		}
-		for(int j = width; j > 0; j--){
+		for(int j = width-1; j >= 0; j--){
 			if(!(board[j][j] == mark)){
 				winDiagonalEast = false;
 			}

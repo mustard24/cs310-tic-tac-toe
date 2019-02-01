@@ -20,7 +20,10 @@ public class TicTacToeController {
         /* MAIN LOOP (repeats until game is over) */
 		while(!(model.isGameover())){
 			view.showBoard(model.toString());
-			view.getNextMove(model.isXTurn());
+			TicTacToeMove move = view.getNextMove(model.isXTurn());
+			while(!(model.makeMark(move.getRow(),move.getCol()))){
+				view.showInputError();
+			}
 			view.showResult(model.getResult().toString());
 		}
         /* Display the board using the View's "showBoard()", then use

@@ -91,8 +91,7 @@ public class TicTacToeModel {
            toggle "xTurn" from true to false (or vice-versa) to switch to the
            other player before returning TRUE.  Otherwise, return FALSE. */
 		this.width = width;
-        TicTacToeModel model = new TicTacToeModel(width);
-		if(model.isValidSquare(row,col) && !(model.isSquareMarked(row,col))){
+		if(isValidSquare(row,col) && !(isSquareMarked(row,col))){
 			if(xTurn){
 				xTurn = false;
 				board[row][col] = Mark.X;
@@ -114,26 +113,23 @@ public class TicTacToeModel {
         
         /* Return TRUE if the specified location is within the bounds of the board */
         this.width = width;
+		System.out.println(width);
         // INSERT YOUR CODE HERE
-		if(row < 0 || row > width){
+		if(row < 0 || row > width - 1){
 			return false;
 		}
-		else if (col < 0 || col > width){
+		else if (col < 0 || col > width - 1){
 			return false;
 		}
 		return true;
     }
 	
     private boolean isSquareMarked(int row, int col) {
-        
         /* Return TRUE if the square at specified location is marked */
-		System.out.println("This is totally called.");
-		
-		if(board[row][col] == Mark.X || board[row][col] == Mark.O){
-			System.out.println("yeet");
-			return true;
+		if(board[row][col] == Mark.EMPTY){
+			return false;
 		}
-        return false; // remove this line later!
+        return true; // remove this line later!
             
     }
 	
@@ -150,14 +146,13 @@ public class TicTacToeModel {
         /* Call "isMarkWin()" to see if X or O is the winner, if the game is a
            TIE, or if the game is not over.  Return the corresponding Result
            value */
-        TicTacToeModel model = new TicTacToeModel(width);
-		if(model.isMarkWin(Mark.X)){
+		if(isMarkWin(Mark.X)){
 			return Result.X;
 		}
-		else if(model.isMarkWin(Mark.O)){
+		else if(isMarkWin(Mark.O)){
 			return Result.O;
 		}
-		else if(model.isTie()){
+		else if(isTie()){
 			return Result.TIE;
 		}
 		else{
@@ -177,14 +172,34 @@ public class TicTacToeModel {
 				winDiagonalWest = false;
 			}
 		}
+		if(winDiagonalWest){
+			return true;
+		}
+		int jj = 0;
 		for(int j = width-1; j >= 0; j--){
-			if(!(board[j][j] == mark)){
+			
+			if(!(board[jj][j] == mark)){
 				winDiagonalEast = false;
 			}
+			jj++;
+		}
+		if(winDiagonalEast){
+			return true;
 		}
 		for(int k = 0; k < width; k++){
 			for(int l = 0; l < width; l++){
 				if(!(board[k][l] == mark)){
+					winVertical = false;
+				}
+			}
+			if(winVertical){
+				return true;
+			}
+			winVertical = true;
+		}
+		for(int m = 0; m < width; m++){
+			for(int n = 0; n < width; n++){
+				if(!(board[n][m] == mark)){
 					winVertical = false;
 				}
 			}
@@ -200,11 +215,16 @@ public class TicTacToeModel {
 	
     private boolean isTie() {
         
-        /* Check the squares of the board to see if the game is a tie */
-        
-        // INSERT YOUR CODE HERE
+        for(int i = 0; i < width; i ++){
+			for(int j = 0; j < width; j++){
+				if(board[i][j] == Mark.EMPTY){
+					return false;
+				}
+			}
+			
+		}
 
-        return false; // remove this line later!
+        return true; // remove this line later!
         
     }
 
@@ -238,11 +258,20 @@ public class TicTacToeModel {
         StringBuilder output = new StringBuilder("  ");
         
         /* Output the board contents as a string (see examples) */
+		
+		for(int k = 0; k < width; k++){
+			output.append(k);
+		}
+		output.append("\n");
         for(int i = 0; i < width; i++){
+			
+			output.append(i + " ");
+			
+			
 			for(int j = 0; j < width; j++){
 				output.append(board[i][j]);
 			}
-			output.append("\n  ");
+			output.append("\n");
 		}
         // INSERT YOUR CODE HERE
         

@@ -23,6 +23,7 @@ public class TicTacToeController {
 			TicTacToeMove move = view.getNextMove(model.isXTurn());
 			while(!(model.makeMark(move.getRow(),move.getCol()))){
 				view.showInputError();
+				move = view.getNextMove(model.isXTurn());
 			}
 			view.showResult(model.getResult().toString());
 		}
